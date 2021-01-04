@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入 config.properties 配置文件-->
+    <properties resource="config.properties">
+    </properties>
+
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25"/>
+        <setting name="defaultFetchSize" value="100"/>
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="User" type="org.kite.purely.mybatis.entity.User"/>
+
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="org.mybatis.example.ExampleTypeHandler"/>
+    </typeHandlers>
+
+    <objectFactory type="org.mybatis.example.ExampleObjectFactory">
+        <property name="someProperty" value="100"/>
+    </objectFactory>
+
+    <plugins>
+        <plugin interceptor="org.mybatis.example.ExamplePlugin">
+            <property name="someProperty" value="100"/>
+        </plugin>
+    </plugins>
+
+    <!--定义 development 作为默认配置环境-->
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理类型为 JDBC-->
+            <transactionManager type="JDBC"/>
+            <!--数据源参数设置-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driverClass}"/>
+                <property name="url" value="${jdbcUrl}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="SQL Server" value="sqlserver"/>
+        <property name="DB2" value="db2"/>
+        <property name="Oracle" value="oracle" />
+    </databaseIdProvider>
+
+    <!--引入 mappers -->
+    <mappers>
+        <package name="org.kite.purely.mybatis.mapper"/>
+    </mappers>
+</configuration>

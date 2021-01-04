@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入 config.properties 配置文件-->
+    <properties resource="config.properties">
+    </properties>
+
+    <settings>
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
+
+    <!--<typeHandlers>-->
+        <!--<typeHandler handler="org.kite.purely.mybatis.handler.CustomTypeHandler"/>-->
+    <!--</typeHandlers>-->
+
+    <!--定义 development 作为默认配置环境-->
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理类型为 JDBC-->
+            <transactionManager type="JDBC"/>
+            <!--数据源参数设置-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driverClass}"/>
+                <property name="url" value="${jdbcUrl}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--引入 mappers -->
+    <mappers>
+        <mapper resource="mappers/UserMapper.xml"/>
+        <mapper resource="mappers/NewsMapper.xml"/>
+    </mappers>
+</configuration>
